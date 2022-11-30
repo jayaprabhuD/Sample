@@ -24,37 +24,14 @@ def call(Map pipelineParams)
 		    	projectGroupId = 'GroupId'
     			projectVersion = 'Version'
 		     	artifactType = 'Packaging'
-          		bitbucket_repo = "gal-cashless"
-		        branch_type = 'branch_type'
-          		branch = 'branch'
       		}
 		stages
-  		{
-          		stage('Get Branch Type')
-      			{
-        			steps
-          			{
-        				sh 'git branch -r >branch1.txt'
-		                  	sh 'cat branch1.txt'
-              				sh 'cat branch1.txt | awk -F\'/\' \'{print $2}\' >branch_type.txt'
-		                  	sh 'cat branch1.txt | awk -F\'/\' \'{print $3}\' >branch.txt'
-                  	
-              				script
-              				{
-		              			branch_type = readFile('branch_type.txt').trim()
-                		  		echo "Branch Type is #${branch_type}#"
-			                      	branch = readFile('branch.txt').trim()
-                      				echo "Branch name is #${branch}#"
-		                	}
-            			}
-       			}
-    			stage("Build and Package")
+  		{    			
+			stage("Build and Package")
       			{
         			steps
           			{
 		              		echo "Branch Name is : ${env.BRANCH_NAME}"
-                		  	echo "Branch Type is : ${branch_type}"
-		                  	echo "Branch name is : ${branch}"
                 		  	echo (pipelineParams.nexus_url)
 		                 	script
 					{
