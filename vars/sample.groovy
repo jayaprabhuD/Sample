@@ -14,7 +14,7 @@ def call(Map pipelineParams)
                 	artifactDaysToKeepStr: '60'  //Artifacts from builds older than this number of days will be deleted, but the logs, history, reports, etc for the build will be kept
             		)
         		)
-        	timeout(50)
+        	timeout(20)
         	timestamps()
         	disableConcurrentBuilds()
     		}
